@@ -1,16 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <title>Dark Mode Toggle</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A clean dark/light mode toggle demo — built with vanilla HTML, CSS and JavaScript." />
+  <title>Theme Toggle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <div class="container">
-    <h1>Dark Mode Toggle</h1>
-    <button id="toggleBtn">Toggle Theme</button>
-  </div>
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <span class="nav-brand">devui<span class="dot">.</span></span>
+
+    <button id="themeToggle" class="toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+      <span class="toggle-track">
+        <span class="toggle-thumb">
+          <!-- sun -->
+          <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- moon -->
+          <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </span>
+      </span>
+    </button>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <main class="main">
+    <section class="hero">
+      <p class="label">vanilla js · no frameworks</p>
+      <h1 class="hero-title">Dark &amp; Light<br/>Mode Toggle</h1>
+      <p class="hero-sub">
+        Persists your preference via <code>localStorage</code>. Respects
+        <code>prefers-color-scheme</code> on first visit.
+      </p>
+    </section>
+
+    <!-- ── Cards ── -->
+    <section class="cards">
+
+      <article class="card">
+        <div class="card-icon">⚡</div>
+        <h2>Zero dependencies</h2>
+        <p>Pure HTML, CSS &amp; JS — no build step, no bundler, no npm. Open the file and it works.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">💾</div>
+        <h2>Persisted preference</h2>
+        <p>Chosen theme is saved to <code>localStorage</code> so it survives page refreshes.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🎨</div>
+        <h2>CSS custom props</h2>
+        <p>The entire theme lives in <code>:root</code> variables — swap values, the whole UI updates instantly.</p>
+      </article>
+
+    </section>
+
+    <!-- ── Code snippet ── -->
+    <section class="snippet-wrap">
+      <div class="snippet-header">
+        <span class="file-name">scripts.js</span>
+        <span class="lang-tag">JavaScript</span>
+      </div>
+      <pre class="snippet"><code><span class="kw">const</span> root  = document.documentElement;
+<span class="kw">const</span> saved = localStorage.getItem(<span class="str">'theme'</span>);
+
+<span class="kw">if</span> (saved) root.dataset.theme = saved;
+<span class="kw">else if</span> (matchMedia(<span class="str">'(prefers-color-scheme: dark)'</span>).matches)
+  root.dataset.theme = <span class="str">'dark'</span>;
+
+toggle.addEventListener(<span class="str">'click'</span>, () => {
+  <span class="kw">const</span> next = root.dataset.theme === <span class="str">'dark'</span> ? <span class="str">'light'</span> : <span class="str">'dark'</span>;
+  root.dataset.theme = next;
+  localStorage.setItem(<span class="str">'theme'</span>, next);
+});</code></pre>
+    </section>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <span>built by <a href="https://github.com/Vineet3458" target="_blank" rel="noopener">Vineet</a></span>
+    <span class="sep">·</span>
+    <span>HTML · CSS · JS</span>
+  </footer>
 
   <script src="scripts.js"></script>
 </body>
